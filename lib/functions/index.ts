@@ -14,7 +14,7 @@ interface ApiResponse {
 }
 
 let config: Config = {
-  apiUrl: "https://api.nexoracle.com/api",
+  apiUrl: "https://discardapi.dpdns.org/api",
   apiKey: null,
 };
 
