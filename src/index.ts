@@ -511,7 +511,7 @@ class API {
   }
 
   // ==================== TOOLS ====================
-  Dictionary(params: { word: string }) {
+  Dictionary(params: { term: string }) {
     return this.request('/api/dictionary/define', 'GET', params);
   } 
 
