@@ -83,8 +83,8 @@ async function runAllTests() {
     validateResponse(response);
   });
 
-  await runTest('LlamaAi - Should return AI response', async () => {
-    const response = await api.LlamaAi({ prompt: 'Hi there' });
+  await runTest('Deepseek - Should return AI response', async () => {
+    const response = await api.Deepseek({ prompt: 'Hi there' });
     validateResponse(response);
   });
 
@@ -298,7 +298,7 @@ async function runAllTests() {
   }, true); // Skip - needs valid URL
 
   await runTest('GoogleImage - Should search images', async () => {
-    const response = await api.GoogleImage({ query: 'sunset' });
+    const response = await api.GoogleImage({ query: 'sky' });
     validateResponse(response);
   });
 
@@ -366,7 +366,7 @@ async function runAllTests() {
   }, true); // Skip - may require auth
 
   await runTest('JamendoSearch - Should search tracks', async () => {
-    const response = await api.JamendoSearch({ query: 'rock music', type: 'all', limit: 5 });
+    const response = await api.JamendoSearch({ query: 'rock music' });
     validateResponse(response);
   });
 
@@ -543,7 +543,7 @@ async function runAllTests() {
   });
 
   await runTest('BingImage - Should search images', async () => {
-    const response = await api.BingImage({ query: 'mountain' });
+    const response = await api.BingImage({ query: 'game' });
     validateResponse(response);
   });
 
@@ -553,7 +553,7 @@ async function runAllTests() {
   });
 
   await runTest('TimeSearch - Should search time', async () => {
-    const response = await api.TimeSearch({ location: 'New York' });
+    const response = await api.TimeSearch({ location: 'Lahore' });
     validateResponse(response);
   });
 
@@ -590,8 +590,8 @@ async function runAllTests() {
   // ==================== TOOLS TESTS ====================
   console.log(`\n${colors.bright}${colors.blue}━━━ TOOLS ENDPOINTS ━━━${colors.reset}`);
   
-  await runTest('Dictionary - Should define word', async () => {
-    const response = await api.Dictionary({ word: 'serendipity' });
+  await runTest('Dictionary - Should define term', async () => {
+    const response = await api.Dictionary({ term: 'serendipity' });
     validateResponse(response);
   });
 
