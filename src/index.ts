@@ -287,10 +287,6 @@ class API {
     return this.request('/api/download/getty', 'GET', params);
   }
 
-  GoogleImage(params: { query: string }) {
-    return this.request('/api/google/image', 'GET', params);
-  }
-
   // ==================== IMAGE MAKERS ====================
   TextToPic(params: { text: string }) {
     return this.request('/api/tools/ttp', 'GET', params);
@@ -506,7 +502,7 @@ class API {
     return this.request('/api/search/wattpad', 'GET', params);
   }
 
-  Stickers(params: { query: string; page?: integer; limit?: integer }) {
+  Stickers(params: { query: string; page?: number; limit?: number }) {
     return this.request('/api/stickers/search', 'GET', params);
   }
 
