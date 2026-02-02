@@ -145,7 +145,7 @@ class API {
     return this.request('/api/an1apk/download', 'GET', params);
   }
 
-  ApkpureSearch(params: { id: string }) {
+  ApkpureSearch(params: { query: string }) {
     return this.request('/api/apkpure/search', 'GET', params);
   }
 
@@ -153,7 +153,7 @@ class API {
     return this.request('/api/apkpure/download', 'GET', params);
   }
 
-  AptoideSearch(params: { url: string }) {
+  AptoideSearch(params: { query: string }) {
     return this.request('/api/aptoide/search', 'GET', params);
   }
 
@@ -215,7 +215,7 @@ class API {
     return this.request('/api/mediafire/download', 'GET', params);
   }
 
-  Pinterest(params: { text: string }) {
+  Pinterest(params: { url: string }) {
     return this.request('/api/download/pinterest', 'GET', params);
   }
 
@@ -622,6 +622,32 @@ class API {
  CoinsList() {
   return this.request('/api/info/cointags', 'GET');
  }
+
+// ==================== IMAGE EFFECTS (POST with file upload) ====================
+
+DropShadow(body: FormData) {
+  return this.request('/api/sharp/shadow', 'POST', undefined, body, 'body');
+}
+
+Vignette(body: FormData) {
+  return this.request('/api/sharp/vignette', 'POST', undefined, body, 'body');
+}
+
+Blur(body: FormData) {
+  return this.request('/api/sharp/blur', 'POST', undefined, body, 'body');
+}
+
+Grayscale(body: FormData) {
+  return this.request('/api/sharp/grayscale', 'POST', undefined, body, 'body');
+}
+
+Rotate(body: FormData) {
+  return this.request('/api/sharp/rotate', 'POST', undefined, body, 'body');
+}
+
+Resize(body: FormData) {
+  return this.request('/api/sharp/resize', 'POST', undefined, body, 'body');
+}
 
   // ==================== UTILITY METHODS ====================
   setFullResponse(value: boolean): void {
