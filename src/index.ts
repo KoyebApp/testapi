@@ -26,7 +26,7 @@ class API {
     this.apiKey = config.apiKey || 'qasim-dev';
     this.baseURL = config.baseURL || 'https://api.qasimdev.dpdns.org';
     this.fullResponse = config.fullResponse ?? false;
-    this.timeout = config.timeout || 30000;
+    this.timeout = config.timeout || 45000;
   }
 
   private buildURL(endpoint: string, params: Record<string, any>): string {
