@@ -20,7 +20,7 @@ let skippedTests = 0;
 
 // Initialize API
 const api = new API({
-  apiKey: 'qasim-dev',
+  apiKey: 'xbps-install-Syu',
   fullResponse: false,
   timeout: 30000
 });
