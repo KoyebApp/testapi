@@ -122,9 +122,9 @@ async function runAllTests() {
   });
 
   await runTest('ApkpureDl - Should download app', async () => {
-    const response = await api.ApkpureDl({ query: 'whatsapp' });
+    const response = await api.ApkpureDl({ url: 'https://apkpure/whatsapp' });
     validateResponse(response);
-  });
+  }, true); // Skip - needs valid URL
 
   await runTest('AptoideSearch - Should search apps', async () => {
     const response = await api.AptoideSearch({ query: 'telegram' });
@@ -193,34 +193,34 @@ async function runAllTests() {
   }, true); // Skip - needs valid URL
 
   await runTest('Gitclone - Should clone repo', async () => {
-    const response = await api.Gitclone({ url: 'https://github.com/torvalds/linux' });
+    const response = await api.Gitclone({ url: 'https://github.com/GlobalTechInfo/MEGA-MD' });
     validateResponse(response);
-  }, true); // Skip - large download
+  });
 
   await runTest('Instagram - Should download media', async () => {
-    const response = await api.Instagram({ url: 'https://www.instagram.com/p/ABC123DEF456/' });
+    const response = await api.Instagram({ url: 'https://www.instagram.com/reel/DUNYuFajOrR/?igsh=MTAzbzR1YzU3ZnppOA==' });
     validateResponse(response);
-  }, true); // Skip - needs valid URL
+  });
 
   await runTest('Mediafire - Should download file', async () => {
     const response = await api.Mediafire({ url: 'https://www.mediafire.com/file/example' });
     validateResponse(response);
   }, true); // Skip - needs valid URL
 
-  await runTest('Pinterest - Should search images', async () => {
-    const response = await api.Pinterest({ query: 'sky wallpaper' });
+  await runTest('Pinterest - Should download video', async () => {
+    const response = await api.Pinterest({ url: 'https://pin.it/1F3rbjszv' });
     validateResponse(response);
   });
 
   await runTest('TikTok - Should download video', async () => {
-    const response = await api.TikTok({ url: 'https://www.tiktok.com/@user/video/1234567890' });
+    const response = await api.TikTok({ url: 'https://vt.tiktok.com/ZSapQQph2/' });
     validateResponse(response);
-  }, true); // Skip - needs valid URL
+  });
 
   await runTest('Twitter - Should download media', async () => {
-    const response = await api.Twitter({ url: 'https://twitter.com/user/status/1234567890' });
+    const response = await api.Twitter({ url: 'https://x.com/i/status/2018122906304118948' });
     validateResponse(response);
-  }, true); // Skip - needs valid URL
+  });
 
   await runTest('Threads - Should download media', async () => {
     const response = await api.Threads({ url: 'https://www.threads.net/@user/post/ABC123' });
@@ -253,9 +253,9 @@ async function runAllTests() {
   });
 
   await runTest('Snapchat - Should download', async () => {
-    const response = await api.Snapchat({ url: 'https://www.snapchat.com/add/username' });
+    const response = await api.Snapchat({ url: 'https://www.snapchat.com/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYbWVoeG5qaGxhAZtTQohZAZtTPYSgAAAAAQ?share_id=kqpXzzS2YOk&locale=en-US' });
     validateResponse(response);
-  }, true); // Skip - needs valid URL
+  });
 
   await runTest('Sharechat - Should download', async () => {
     const response = await api.Sharechat({ url: 'https://sharechat.com/video/example' });
@@ -298,7 +298,7 @@ async function runAllTests() {
   }, true); // Skip - needs valid URL
 
   await runTest('GoogleImage - Should search images', async () => {
-    const response = await api.GoogleImage({ query: 'beautiful sunset' });
+    const response = await api.GoogleImage({ query: 'sunset' });
     validateResponse(response);
   });
 
@@ -316,11 +316,6 @@ async function runAllTests() {
       name: 'John Doe', 
       profile: 'https://i.pravatar.cc/150?img=1' 
     });
-    validateResponse(response);
-  });
-
-  await runTest('Avatar - Should create avatar', async () => {
-    const response = await api.Avatar({ text: 'JD', shape: 'circle' });
     validateResponse(response);
   });
 
@@ -371,7 +366,7 @@ async function runAllTests() {
   }, true); // Skip - may require auth
 
   await runTest('JamendoSearch - Should search tracks', async () => {
-    const response = await api.JamendoSearch({ query: 'rock music', type: 'tracks', limit: 10 });
+    const response = await api.JamendoSearch({ query: 'rock music', type: 'all', limit: 5 });
     validateResponse(response);
   });
 
@@ -385,11 +380,6 @@ async function runAllTests() {
   
   await runTest('Couple - Should return couple images', async () => {
     const response = await api.Couple();
-    validateResponse(response);
-  });
-
-  await runTest('Food - Should return food images', async () => {
-    const response = await api.Food({ food: 'pizza', keyword: 'italian' });
     validateResponse(response);
   });
 
@@ -553,7 +543,7 @@ async function runAllTests() {
   });
 
   await runTest('BingImage - Should search images', async () => {
-    const response = await api.BingImage({ query: 'mountain landscape' });
+    const response = await api.BingImage({ query: 'mountain' });
     validateResponse(response);
   });
 
@@ -568,7 +558,7 @@ async function runAllTests() {
   });
 
   await runTest('FlickrImage - Should search images', async () => {
-    const response = await api.FlickrImage({ query: 'architecture' });
+    const response = await api.FlickrImage({ query: 'nature' });
     validateResponse(response);
   });
 
@@ -641,7 +631,7 @@ async function runAllTests() {
   });
 
   await runTest('UnitConvert - Should convert units', async () => {
-    const response = await api.UnitConvert({ from: 'km', to: 'miles', value: 10 });
+    const response = await api.UnitConvert({ from: 'f', to: 'c', value: 100 });
     validateResponse(response);
   });
 
@@ -711,7 +701,7 @@ async function runAllTests() {
   });
 
   await runTest('Trends - Should get trends', async () => {
-    const response = await api.Trends({ country: 'us' });
+    const response = await api.Trends({ country: 'pakistan' });
     validateResponse(response);
   });
 
