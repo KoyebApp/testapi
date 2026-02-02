@@ -62,7 +62,7 @@ function validateResponse(response, shouldHaveData = true) {
 // Main test suite
 async function runAllTests() {
   console.log(`\n${colors.bright}${colors.cyan}════════════════════════════════════════════════════════${colors.reset}`);
-  console.log(`${colors.bright}${colors.cyan}           DISCARD API - COMPREHENSIVE TEST SUITE        ${colors.reset}`);
+  console.log(`${colors.bright}${colors.cyan}           QasimDev API - COMPREHENSIVE TEST SUITE        ${colors.reset}`);
   console.log(`${colors.bright}${colors.cyan}════════════════════════════════════════════════════════${colors.reset}\n`);
 
   // ==================== AI TESTS ====================
