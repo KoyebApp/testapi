@@ -106,15 +106,11 @@ async function runAllTests() {
   // ==================== IMAGE EFFECTS TESTS ====================
   console.log(`\n${colors.bright}${colors.blue}━━━ IMAGE EFFECTS ENDPOINTS ━━━${colors.reset}`);
   
-  await runTest('DropShadow - Should add drop shadow', async () => {
+  await runTest('Fisheye - Should add fisheye', async () => {
     const formData = createFormData(testImagePath, {
-      size: 10,
-      blur: 5,
-      opacity: 0.5,
-      x: 5,
-      y: 5
+      radius: 2.5
     });
-    const response = await api.DropShadow(formData);
+    const response = await api.Fisheye(formData);
     validateResponse(response);
   });
 
@@ -127,9 +123,7 @@ async function runAllTests() {
   });
 
   await runTest('Blur - Should blur image', async () => {
-    const formData = createFormData(testImagePath, {
-      sigma: 3
-    });
+    const formData = createFormData(testImagePath);
     const response = await api.Blur(formData);
     validateResponse(response);
   });
@@ -140,11 +134,9 @@ async function runAllTests() {
     validateResponse(response);
   });
 
-  await runTest('Rotate - Should rotate image', async () => {
-    const formData = createFormData(testImagePath, {
-      angle: 90
-    });
-    const response = await api.Rotate(formData);
+  await runTest('Invert - Should Invert colors', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Invert(formData);
     validateResponse(response);
   });
 
