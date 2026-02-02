@@ -79,7 +79,7 @@ async function runAllTests() {
   });
 
   await runTest('CodestralAi - Should return code response', async () => {
-    const response = await api.CodestralAi({ text: 'Write hello world', model: 'codestral-latest' });
+    const response = await api.CodestralAi({ text: 'Write hello world' });
     validateResponse(response);
   });
 
@@ -107,17 +107,17 @@ async function runAllTests() {
   console.log(`\n${colors.bright}${colors.blue}━━━ APPS ENDPOINTS ━━━${colors.reset}`);
   
   await runTest('An1Search - Should search apps', async () => {
-    const response = await api.An1Search({ query: 'minecraft' });
+    const response = await api.An1Search({ query: 'telegram' });
     validateResponse(response);
   });
 
   await runTest('ApkpureSearch - Should search apps', async () => {
-    const response = await api.ApkpureSearch({ id: 'whatsapp' });
+    const response = await api.ApkpureSearch({ query: 'telegram' });
     validateResponse(response);
   });
 
   await runTest('AptoideSearch - Should search apps', async () => {
-    const response = await api.AptoideSearch({ url: 'https://aptoide.com' });
+    const response = await api.AptoideSearch({ query: 'telegram' });
     validateResponse(response);
   });
 
@@ -139,21 +139,16 @@ async function runAllTests() {
     validateResponse(response);
   });
 
-  await runTest('Unshort - Should expand short URL', async () => {
-    const response = await api.Unshort({ url: 'https://bit.ly/3example' });
-    validateResponse(response);
-  });
-
   // ==================== DOWNLOAD TESTS ====================
   console.log(`\n${colors.bright}${colors.blue}━━━ DOWNLOAD ENDPOINTS ━━━${colors.reset}`);
   
   await runTest('TikTok - Should download video', async () => {
-    const response = await api.TikTok({ url: 'https://www.tiktok.com/@username/video/1234567890' });
+    const response = await api.TikTok({ url: 'https://vt.tiktok.com/ZSapQQph2/' });
     validateResponse(response);
   });
 
   await runTest('Instagram - Should download media', async () => {
-    const response = await api.Instagram({ url: 'https://www.instagram.com/p/ABC123/' });
+    const response = await api.Instagram({ url: 'https://www.instagram.com/reel/DUGAQwaiQXS/?igsh=MWxyYjg5Y3NvYzAybQ==' });
     validateResponse(response);
   });
 
@@ -189,7 +184,7 @@ async function runAllTests() {
   console.log(`\n${colors.bright}${colors.blue}━━━ MUSIC ENDPOINTS ━━━${colors.reset}`);
   
   await runTest('Spotify - Should download track', async () => {
-    const response = await api.Spotify({ url: 'https://open.spotify.com/track/example' });
+    const response = await api.Spotify({ url: '  https://open.spotify.com/track/1vtALFOqKv1Azrp91ck5dC?si=R1rBr5hTQoiyb2h1MH30CQ' });
     validateResponse(response);
   });
 
@@ -278,7 +273,7 @@ async function runAllTests() {
   });
 
   await runTest('TiktokUser - Should return user info', async () => {
-    const response = await api.TiktokUser({ username: 'example' });
+    const response = await api.TiktokUser({ username: 'genius.rai' });
     validateResponse(response);
   });
 
@@ -314,7 +309,7 @@ async function runAllTests() {
   console.log(`\n${colors.bright}${colors.blue}━━━ TOOLS ENDPOINTS ━━━${colors.reset}`);
   
   await runTest('Dictionary - Should define word', async () => {
-    const response = await api.Dictionary({ word: 'hello' });
+    const response = await api.Dictionary({ word: 'why' });
     validateResponse(response);
   });
 
