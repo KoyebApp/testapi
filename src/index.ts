@@ -251,905 +251,380 @@ class API {
     return this.request('/api/wallpaper/wikimedia', 'GET', params);
   }
 
-  dlYouTube(params: { url: string; format: string }) {
-    return this.request('/api/dl/youtube', 'GET', params);
+  Snapchat(params: { url: string }) {
+    return this.request('/api/download/snapchat', 'GET', params);
   }
 
-  dlBilibili(params: { url: string }) {
-    return this.request('/api/dl/bilibili', 'GET', params);
+  Sharechat(params: { url: string }) {
+    return this.request('/api/download/sharechat', 'GET', params);
   }
 
-  dlLinkedIn(params: { url: string }) {
-    return this.request('/api/dl/linkedin', 'GET', params);
+  Snackvideo(params: { url: string }) {
+    return this.request('/api/download/snackvideo', 'GET', params);
   }
 
-  dlSnapChat(params: { url: string }) {
-    return this.request('/api/dl/snapchat', 'GET', params);
+  Reddit(params: { url: string }) {
+    return this.request('/api/download/reddit', 'GET', params);
   }
 
-  dlShareChat(params: { url: string }) {
-    return this.request('/api/dl/sharechat', 'GET', params);
+  Videezy(params: { url: string }) {
+    return this.request('/api/download/videezy', 'GET', params);
   }
 
-  dlSnackVideo(params: { url: string }) {
-    return this.request('/api/dl/snack', 'GET', params);
+  Vidsplay(params: { url: string }) {
+    return this.request('/api/download/vidsplay', 'GET', params);
   }
 
-  dlPinterestVideo(params: { url: string }) {
-    return this.request('/api/dl/pinterest', 'GET', params);
+  IMDbVideo(params: { url: string }) {
+    return this.request('/api/download/imdb', 'GET', params);
   }
 
-  dlRedditVideo(params: { url: string }) {
-    return this.request('/api/dl/reddit', 'GET', params);
+  IFunny(params: { url: string }) {
+    return this.request('/api/download/ifunny', 'GET', params);
   }
 
-  dlVideezy(params: { url: string }) {
-    return this.request('/api/dl/videezy', 'GET', params);
+  Getty(params: { url: string }) {
+    return this.request('/api/download/getty', 'GET', params);
   }
 
-  dlVidsPlay(params: { url: string }) {
-    return this.request('/api/dl/vidsplay', 'GET', params);
-  }
-
-  dlIMDbVideo(params: { url: string }) {
-    return this.request('/api/dl/imdb', 'GET', params);
-  }
-
-  dlIFunny(params: { url: string }) {
-    return this.request('/api/dl/ifunny', 'GET', params);
-  }
-
-  dlGetty(params: { url: string }) {
-    return this.request('/api/dl/getty', 'GET', params);
-  }
-
-  pexelsVideos(params: { query: string }) {
-    return this.request('/api/pexels/videos', 'GET', params);
-  }
-
-  pexelsImages(params: { query: string }) {
-    return this.request('/api/pexels/images', 'GET', params);
-  }
-
-  loremPicsum(params: { id: string; height?: string; width?: string; grayscale?: string; blur?: string }) {
-    return this.request('/api/dl/picsum', 'GET', params);
-  }
-
-  iconFinder(params: { query: string }) {
-    return this.request('/api/icon/finder', 'GET', params);
-  }
-
-  pixabayImages(params: { query: string; page?: string }) {
-    return this.request('/api/pixabay/images', 'GET', params);
-  }
-
-  pixabayVideos(params: { query: string; page?: string; category?: string }) {
-    return this.request('/api/pixabay/videos', 'GET', params);
-  }
-
-  tenorGifs(params: { query: string }) {
-    return this.request('/api/dl/tenor', 'GET', params);
-  }
-
-  pasteBin(params: { id: string; dl?: string }) {
-    return this.request('/api/dl/pastebin', 'GET', params);
-  }
-
-  googleImage(params: { query: string }) {
-    return this.request('/api/dl/gimage', 'GET', params);
-  }
-
-  baiduImage(params: { query: string; page?: string }) {
-    return this.request('/api/img/baidu', 'GET', params);
-  }
-
-  dailyBing() {
-    return this.request('/api/img/dailybing', 'GET');
-  }
-
-  dlIStock(params: { url: string }) {
-    return this.request('/api/dl/istock', 'GET', params);
-  }
-
-  dlOdysee(params: { url: string }) {
-    return this.request('/api/dl/odysee', 'GET', params);
-  }
-
-  dlAlamy(params: { url: string }) {
-    return this.request('/api/dl/alamy', 'GET', params);
+  GoogleImage(params: { query: string }) {
+    return this.request('/api/google/image', 'GET', params);
   }
 
   // ==================== IMAGE MAKERS ====================
-  qrCode(params: { text: string }) {
-    return this.request('/api/maker/qrcode', 'GET', params);
+  TextToPic(params: { text: string }) {
+    return this.request('/api/tools/ttp', 'GET', params);
   }
 
-  qrTag(params: { text: string; size?: string; color?: string; logo?: string }) {
-    return this.request('/api/maker/qrtag', 'GET', params);
+  Quoted(params: { text: string; name: string; profile: string }) {
+    return this.request('/api/tools/quoted', 'GET', params);
   }
 
-  textToPic(params: { text: string }) {
-    return this.request('/api/maker/ttp', 'GET', params);
+  Avatar(params: { text: string; shape?: string }) {
+    return this.request('/api/tools/avatar', 'GET', params);
   }
 
-  designFont(params: { text: string }) {
-    return this.request('/api/design/font', 'GET', params);
-  }
-
-  captchaImage() {
-    return this.request('/api/maker/captcha', 'GET');
-  }
-
-  customQR(params: { text: string; size?: string; color?: string }) {
-    return this.request('/api/maker/customqr', 'GET', params);
-  }
-
-  textAvatar(params: { text: string; shape?: string }) {
-    return this.request('/api/maker/avatar', 'GET', params);
-  }
-
-  webLogo(params: { url: string }) {
-    return this.request('/api/maker/weblogo', 'GET', params);
-  }
-
-  whoWins(params: { url1: string; url2: string }) {
-    return this.request('/api/maker/whowin', 'GET', params);
-  }
-
-  quoted(params: { text: string; name: string; profile: string; color?: string }) {
-    return this.request('/api/maker/quoted', 'GET', params);
-  }
-
-  qrPro(params: { text: string; size?: string; color?: string; logo?: string; caption?: string }) {
-    return this.request('/api/qr/pro', 'GET', params);
-  }
-
-  img2Base64(body: FormData) {
+  Img2Base64(body: FormData) {
     return this.request('/api/img2base64', 'POST', undefined, body, 'body');
   }
 
-  base64ToImg(params: { data: string }) {
-    return this.request('/api/img2base64', 'GET', params);
-  }
-
-  barcode128(params: { text: string }) {
-    return this.request('/api/barcode/code', 'GET', params);
-  }
-
-  barcodeEAN(params: { text: string }) {
-    return this.request('/api/barcode/ean', 'GET', params);
-  }
-
-  barcodeQR(params: { text: string }) {
-    return this.request('/api/barcode/qr', 'GET', params);
-  }
-
-  emojiMosaic(body: FormData, params: { width: string; palette: string; format?: string }) {
-    return this.request('/api/emoji/mosaic', 'POST', params, body, 'body');
-  }
-
-  emojiTranslate(params: { text: string }) {
-    return this.request('/api/emoji/translate', 'GET', params);
-  }
-
-  emojiReplace(params: { text: string }) {
-    return this.request('/api/emoji/replace', 'GET', params);
-  }
-
-  emojiMirror(params: { text: string }) {
-    return this.request('/api/emoji/mirror', 'GET', params);
-  }
-
-  emojiRainbow(params: { text: string }) {
-    return this.request('/api/emoji/rainbow', 'GET', params);
-  }
-
-  emojiMix(params: { e1: string; e2: string }) {
-    return this.request('/api/emoji/mix', 'GET', params);
-  }
-
-  carbonImage(params: { code: string; bg?: string }) {
-    return this.request('/api/maker/carbon', 'GET', params);
-  }
-
-  welcomeImage(params: { background: string; avatar: string; text1: string; text2: string; text3: string }) {
-    return this.request('/api/maker/welcome', 'GET', params);
+  Carbon(params: { code: string; bg?: string }) {
+    return this.request('/api/tools/carbon', 'GET', params);
   }
 
   // ==================== MUSIC ====================
-  searchSpotify(params: { query: string }) {
-    return this.request('/api/search/spotify', 'GET', params);
+  Spotify(params: { url: string }) {
+    return this.request('/api/spotify/download', 'GET', params);
   }
 
-  dlSpotify(params: { url: string }) {
-    return this.request('/api/dl/spotify', 'GET', params);
+  SearchScloud(params: { q: string; limit?: number }) {
+    return this.request('/api/soundcloud/search', 'GET', params);
   }
 
-  searchSoundCloud(params: { query: string }) {
-    return this.request('/api/search/soundcloud', 'GET', params);
+  ScloudDl(params: { url: string }) {
+    return this.request('/api/soundcloud/download', 'GET', params);
   }
 
-  dlSoundCloud(params: { url: string }) {
-    return this.request('/api/dl/soundcloud', 'GET', params);
+  GeniusSearch(params: { query: string }) {
+    return this.request('/api/genius/search', 'GET', params);
   }
 
-  lyrics(params: { song: string }) {
-    return this.request('/api/music/lyrics', 'GET', params);
+  GeniusLyrics(params: { url: string }) {
+    return this.request('/api/genius/lyrics', 'GET', params);
   }
 
-  ringtones(params: { title: string }) {
-    return this.request('/api/dl/ringtone', 'GET', params);
+  DeezerSearch(params: { track?: string; artist?: string; album?: string }) {
+    return this.request('/api/deezer/search', 'GET', params);
   }
 
-  searchSound(params: { query: string }) {
-    return this.request('/api/search/sound', 'GET', params);
+  DeezerDl(params: { id: string }) {
+    return this.request('/api/deezer/track', 'GET', params);
   }
 
-  previewSound(params: { id: string }) {
-    return this.request('/api/dl/sound', 'GET', params);
+  JamendoSearch(params: { query: string; type?: string; limit?: number }) {
+    return this.request('/api/jamendo/jamendoSearch', 'GET', params);
   }
 
-  searchDeezer(params: { track?: string; artist?: string; album?: string }) {
-    return this.request('/api/search/deezer', 'GET', params);
+  JamendoTracks(params: { artist_name: string; limit?: number; type?: string }) {
+    return this.request('/api/jamendo/albumTracks', 'GET', params);
   }
-
-  previewDeezer(params: { id: string }) {
-    return this.request('/api/search/deezer', 'GET', params);
-  }
-
-  searchMusicBrainz(params: { entity: string; query?: string; id?: string }) {
-    return this.request('/api/search/musicbrainz', 'GET', params);
-  }
-
-  openWhyd(params: { username: string; limit?: string }) {
-    return this.request('/api/search/openwhyd', 'GET', params);
-  }
-
-  // ==================== JOKES ====================
-  dadJoke() {
-    return this.request('/api/joke/dad', 'GET');
-  }
-
-  generalJoke() {
-    return this.request('/api/joke/general', 'GET');
-  }
-
-  knockJoke() {
-    return this.request('/api/joke/knock', 'GET');
-  }
-
-  programmingJoke() {
-    return this.request('/api/joke/programming', 'GET');
-  }
-
-  miscJoke() {
-    return this.request('/api/joke/misc', 'GET');
-  }
-
-  codingJoke() {
-    return this.request('/api/joke/coding', 'GET');
-  }
-
-  spookyJoke() {
-    return this.request('/api/joke/spooky', 'GET');
-  }
-
-  darkJoke() {
-    return this.request('/api/joke/dark', 'GET');
-  }
-
-  christmasJoke() {
-    return this.request('/api/joke/Christmas', 'GET');
-  }
-
-  randomJoke() {
-    return this.request('/api/joke/random', 'GET');
-  }
-
-  animalJoke() {
-    return this.request('/api/joke/animal', 'GET');
-  }
-
-  careerJoke() {
-    return this.request('/api/joke/career', 'GET');
-  }
-
-  celebrityJoke() {
-    return this.request('/api/joke/celebrity', 'GET');
-  }
-
-  explicitJoke() {
-    return this.request('/api/joke/explicit', 'GET');
-  }
-
-  fashionJoke() {
-    return this.request('/api/joke/fashion', 'GET');
-  }
-
-  foodJoke() {
-    return this.request('/api/joke/food', 'GET');
-  }
-
-  historyJoke() {
-    return this.request('/api/joke/history', 'GET');
-  }
-
-  moneyJoke() {
-    return this.request('/api/joke/money', 'GET');
-  }
-
-  movieJoke() {
-    return this.request('/api/joke/movie', 'GET');
-  }
-
-  musicJoke() {
-    return this.request('/api/joke/music', 'GET');
-  }
-
-  scienceJoke() {
-    return this.request('/api/joke/science', 'GET');
-  }
-
-  sportJoke() {
-    return this.request('/api/joke/sport', 'GET');
-  }
-
-  travelJoke() {
-    return this.request('/api/joke/travel', 'GET');
-    }
 
    // ==================== IMAGES ====================
-  coupleImage() {
-    return this.request('/api/img/couple', 'GET');
+  Couple() {
+    return this.request('/api/images/couplepp', 'GET');
   }
 
-  pizzaImage() {
-    return this.request('/api/images/pizza', 'GET');
+  Food (params: { food: string; keyword?: string }) {
+    return this.request('/api/images/food', 'GET', params);
   }
 
-  burgerImage() {
-    return this.request('/api/images/burger', 'GET');
+  Islamic() {
+    return this.request('/api/images/islamic', 'GET');
   }
 
-  dosaImage() {
-    return this.request('/api/images/dosa', 'GET');
+  Tech() {
+    return this.request('/api/images/tech', 'GET');
   }
 
-  pastaImage() {
-    return this.request('/api/images/pasta', 'GET');
+  Game() {
+    return this.request('/api/images/game', 'GET');
   }
 
-  biryaniImage() {
-    return this.request('/api/images/biryani', 'GET');
+  Mountain() {
+    return this.request('/api/images/mountain', 'GET');
   }
 
-  islamicImage() {
-    return this.request('/api/img/islamic', 'GET');
+  CyberSpace() {
+    return this.request('/api/images/cyberspace', 'GET');
   }
 
-  techImage() {
-    return this.request('/api/img/tech', 'GET');
+  Coding() {
+    return this.request('/api/images/coding', 'GET');
   }
 
-  gameImage() {
-    return this.request('/api/img/game', 'GET');
-  }
-
-  mountainImage() {
-    return this.request('/api/img/mountain', 'GET');
-  }
-
-  programmingImage() {
-    return this.request('/api/img/programming', 'GET');
-  }
-
-  cyberSpaceImage() {
-    return this.request('/api/img/cyberspace', 'GET');
-  }
-
-  wallPcImage() {
-    return this.request('/api/img/wallpc', 'GET');
-  }
-
-  messiImage() {
-    return this.request('/api/img/messi', 'GET');
-  }
-
-  ronaldoImage() {
-    return this.request('/api/img/ronaldo', 'GET');
-  }
-
-  coffeeImage() {
-    return this.request('/api/img/coffee', 'GET');
-  }
-
-  catImage() {
-    return this.request('/api/img/cat', 'GET');
-  }
-
-  dogImage() {
-    return this.request('/api/img/dog', 'GET');
-  }
-
-  yesNoImage() {
-    return this.request('/api/img/yesno', 'GET');
-  }
-
-  foxImage() {
-    return this.request('/api/img/fox', 'GET');
-  }
-
-  notExistImage() {
-    return this.request('/api/img/notexist', 'GET');
+  Coffee() {
+    return this.request('/api/images/coffee', 'GET');
   }
 
   // ==================== NEWS ====================
-  AljazeeraEnglish() {
+  GoogleNews(params: { query?: string }) {
+    return this.request('/api/news/google', 'GET', params);
+  }
+  
+  Aljazeera() {
     return this.request('/api/news/aljazeera', 'GET');
   }
-  
-  AlJazeeraArticle(params: { url: string }) {
-    return this.request('/api/aljazeera/article', 'GET', params);
+
+  Bbc() {
+    return this.request('/api/news/bbc', 'GET');
   }
   
-  AlJazeeraArabic() {
-    return this.request('/api/news/aljazeera/ar', 'GET');
+  Trt() {
+    return this.request('/api/news/trtWorld', 'GET');
   }
   
-  ArabicArticle(params: { url: string }) {
-    return this.request('/api/aljazeera/article/ar', 'GET', params);
+  Sky() {
+    return this.request('/api/news/skyNews', 'GET');
   }
   
-  TRTWorld() {
-    return this.request('/api/news/trt', 'GET');
+  SkySports(params: { sport: string }) {
+    return this.request('/api/news/skySports', 'GET', params);
   }
   
-  TRTArticle(params: { url: string }) {
-    return this.request('/api/trt/article', 'GET', params);
-  }
-  
-  TRTAfrika() {
-    return this.request('/api/news/trt/af', 'GET');
-  }
-  
-  AfrikaArticle(params: { url: string }) {
-    return this.request('/api/trt/article/af', 'GET', params);
-  }
-  
-  SkyNews() {
-    return this.request('/api/news/sky', 'GET');
-  }
-  
-  SkyArticle(params: { url: string }) {
-    return this.request('/api/sky/article', 'GET', params);
-  }
-  
-  SkySports() {
-    return this.request('/api/news/skysports', 'GET');
-  }
-  
-  SportsArticle(params: { url: string }) {
-    return this.request('/api/skysports/article', 'GET', params);
-  }
-  
-  DawnNews() {
+  Dawn() {
     return this.request('/api/news/dawn', 'GET');
   }
   
-  DawnArticle(params: { url: string }) {
-    return this.request('/api/dawn/article', 'GET', params);
-  }
-  
-  CNNNews() {
+  Cnn() {
     return this.request('/api/news/cnn', 'GET');
   }
   
-  CNNArticle(params: { url: string }) {
-    return this.request('/api/cnn/article', 'GET', params);
-  }
-  
-  CGTNWorld() {
-    return this.request('/api/news/cgtn', 'GET');
-  }
-  
-  CGTNArticle(params: { url: string }) {
-    return this.request('/api/cgtn/article', 'GET', params);
+  Cgtn() {
+    return this.request('/api/news/cgtnWorld', 'GET');
   }
   
   GeoUrdu() {
+    return this.request('/api/news/geoUrdu', 'GET');
+  }
+  
+  Geo() {
     return this.request('/api/news/geo', 'GET');
   }
   
-  GeoArticle(params: { url: string }) {
-    return this.request('/api/geo/article', 'GET', params);
-  }
-  
-  GeoEnglish() {
-    return this.request('/api/news/geo/en', 'GET');
-  }
-  
-  GeoArticleEn(params: { url: string }) {
-    return this.request('/api/geo/article/en', 'GET', params);
-  }
-  
-  GeoSuper() {
-    return this.request('/api/news/geosuper', 'GET');
-  }
-  
-  SuperArticle(params: { url: string }) {
-    return this.request('/api/geosuper/article', 'GET', params);
-  }
-  
-  ExpressTribune() {
-    return this.request('/api/news/tribune', 'GET');
-  }
-  
-  TribuneArticle(params: { url: string }) {
-    return this.request('/api/tribune/article', 'GET', params);
-  }
-  
-  NeoNews() {
+  Neo() {
     return this.request('/api/news/neo', 'GET');
   }
   
-  NeoArticle(params: { url: string }) {
-    return this.request('/api/neo/article', 'GET', params);
-  }
-  
-  ExpressNews() {
+  Express() {
     return this.request('/api/news/express', 'GET');
-  }
-  
-  ExpressArticle(params: { url: string }) {
-    return this.request('/api/express/article', 'GET', params);
-  }
-  
-  TheGuardian() {
-    return this.request('/api/news/guardian', 'GET');
-  }
-  
-  GuardianArticle(params: { url: string }) {
-    return this.request('/api/guardian/article', 'GET', params);
-  }
-  
-  AntaraNews() {
-    return this.request('/api/news/antara', 'GET');
-  }
-  
-  AntaraArticle(params: { url: string }) {
-    return this.request('/api/antara/article', 'GET', params);
-  }
+  } 
+
 
   // ==================== STALKER ====================
-  stalkPinterest(params: { username: string }) {
+  PinterestUser(params: { username: string }) {
     return this.request('/api/stalk/pinterest', 'GET', params);
   }
   
-  stalkGithub(params: { username: string }) {
+  GithubUser(params: { username: string }) {
     return this.request('/api/stalk/github', 'GET', params);
   }
   
-  stalkInstagram(params: { username: string }) {
-    return this.request('/api/stalk/instagram', 'GET', params);
-  }
-  
-  stalkThreads(params: { username: string }) {
-    return this.request('/api/stalk/threads', 'GET', params);
-  }
-  
-  stalkTwitter(params: { username: string }) {
-    return this.request('/api/stalk/twitter', 'GET', params);
-  }
-  
-  stalkTelegram(params: { username: string }) {
+  TelegramUser(params: { username: string }) {
     return this.request('/api/stalk/telegram', 'GET', params);
   }
   
-  stalkTikTok(params: { username: string }) {
+  ThreadsUser(params: { username: string }) {
+    return this.request('/api/stalk/threads', 'GET', params);
+  }
+  
+  RedditUser(params: { username: string }) {
+    return this.request('/api/stalk/reddit', 'GET', params);
+  }
+  
+  ScloudUser(params: { username: string }) {
+    return this.request('/api/stalk/soundcloud', 'GET', params);
+  }
+  
+  TiktokUser(params: { username: string }) {
     return this.request('/api/stalk/tiktok', 'GET', params);
   }
 
+  DribbbleUser(params: { username: string }) {
+    return this.request('/api/stalk/dribbble', 'GET', params);
+  }
+
+  MastodonUser(params: { username: string; instance?: string }) {
+    return this.request('/api/stalk/mastodon', 'GET', params);
+  }
+
   // ==================== SEARCH ====================
-  searchGoogle(params: { query: string }) {
-    return this.request('/api/search/google', 'GET', params);
+  BingSearch(params: { query: string }) {
+    return this.request('/api/bing/search', 'GET', params);
   }
 
-  searchBing(params: { query: string }) {
-    return this.request('/api/search/bing', 'GET', params);
+  BingImage(params: { query: string }) {
+    return this.request('/api/bing/image', 'GET');
   }
 
-  searchBaidu() {
-    return this.request('/api/search/baidu', 'GET');
-  }
-
-  searchWeibo() {
-    return this.request('/api/search/weibo', 'GET');
+  GoogleImage(params: { query: string }) {
+    return this.request('/api/google/image', 'GET');
   }
   
-  searchImgur(params: { query: string }) {
-    return this.request('/api/search/imgur', 'GET', params);
+  ImgurSearch(params: { query: string }) {
+    return this.request('/api/imgur/search', 'GET', params);
   }
 
-  searchTime(params: { query: string }) {
-    return this.request('/api/search/time', 'GET', params);
+  TimeSearch(params: { location: string }) {
+    return this.request('/api/time/search', 'GET', params);
   }
 
-  searchFlicker(params: { query: string }) {
-    return this.request('/api/search/flicker', 'GET', params);
+  FlickrImage(params: { query: string }) {
+    return this.request('/api/flickr/search', 'GET', params);
   }
 
-  searchItunes(params: { query: string }) {
-    return this.request('/api/search/itunes', 'GET', params);
-  }
-
-  searchWattpad(params: { query: string }) {
+  Wattpad(params: { query: string }) {
     return this.request('/api/search/wattpad', 'GET', params);
   }
 
-  searchStickers(params: { query: string }) {
-    return this.request('/api/search/stickers', 'GET', params);
+  Stickers(params: { query: string; page?: integer; limit?: integer }) {
+    return this.request('/api/stickers/search', 'GET', params);
   }
 
-  searchYoutube(params: { query: string }) {
-    return this.request('/api/search/youtube2', 'GET', params);
-  }
-
-  searchTracks(params: { query: string }) {
-    return this.request('/api/search/youtube2', 'GET', params);
+  YTSearch(params: { query: string; limit?: number }) {
+    return this.request('/api/yts/searchVideos', 'GET', params);
   }
   
-  searchGifs(params: { query: string }) {
-    return this.request('/api/klipy/gif', 'GET', params);
+  PinSearch(params: { query: string }) {
+    return this.request('/api/pinterest/search', 'GET', params);
   }
 
-  searchMemes(params: { query: string }) {
-    return this.request('/api/klipy/meme', 'GET', params);
+  ImdbSearch(params: { query: string }) {
+    return this.request('/api/imdb/search', 'GET', params);
   }
 
   // ==================== TOOLS ====================
-  toolsCompress(params: { type: string; text: string }) {
-    return this.request('/api/compress', 'GET', params);
-  }
-
-  toolsDecompress(params: { type: string; data: string }) {
-    return this.request('/api/decompress', 'GET', params);
-  }
-
-  toolsBanklogo(params: { domain: string }) {
-    return this.request('/api/tools/banklogo', 'GET', params);
-  }
-  
-  toolsDetectLang(params: { text: string }) {
-    return this.request('/api/tools/detect', 'GET', params);
-  }
-
-  toolsDictionary(params: { word: string }) {
+  Dictionary(params: { word: string }) {
     return this.request('/api/tools/dictionary', 'GET', params);
+  } 
+
+  Screenshot(params: { url: string }) {
+    return this.request('/api/screenshot/take', 'GET', params);
   }
 
-  toolsDictionary2(params: { word: string }) {
-    return this.request('/api/tools/dict', 'GET', params);
-  }
-
-  toolsMathematics(params: { expr: string }) {
-    return this.request('/api/tools/math', 'GET', params);
-  }
-
-  toolsPreview(params: { url: string }) {
-    return this.request('/api/tools/preview', 'GET', params);
-  }
-
-  toolsScreenshot(params: { url: string }) {
-    return this.request('/api/tools/ssweb', 'GET', params);
-  }
-
-  toolsStyleText(params: { text: string }) {
+  SSFull(params: { url: string; format?: string; fullSize?: boolean }) {
     return this.request('/api/tools/styletext', 'GET', params);
   }
 
-  toolsTranslate(params: { text: string; to: string }) {
-    return this.request('/api/tools/translate', 'GET', params);
+  Translate(params: { text: string; from?: string; to?: string }) {
+    return this.request('/api/translate/bing', 'GET', params);
   }
 
-  toolsTranslate2(params: { text: string; lang: string }) {
-    return this.request('/api/go/translate', 'GET', params);
+  Translate2(params: { text: string; from?: string; to?: string }) {
+    return this.request('/api/translate/google', 'GET', params);
   }
 
-  toolsPing(params: { url: string }) {
-    return this.request('/api/simple/ping', 'GET', params);
+  Ping(params: { url: string }) {
+    return this.request('/api/tools/ping', 'GET', params);
   }
 
-  toolsCounter(params: { count: number }) {
-    return this.request('/api/tools/count', 'GET', params);
+  Handwriting(params: { text: string }) {
+    return this.request('/api/text/handwriting', 'GET', params);
   }
 
-  toolsHandwriting(params: { text: string }) {
-    return this.request('/api/tools/handwrite', 'GET', params);
+  TextStats(params: { text: string }) {
+    return this.request('/api/text/stats', 'GET', params);
   }
 
-  toolsTextStats(params: { text: string }) {
-    return this.request('/api/tools/string', 'GET', params);
-  }
-
-  toolsWordCount(params: { text: string }) {
-    return this.request('/api/word/count', 'GET', params);
-  }
-
-  toolsUnitConvert(params: { from: string; to: string; value: number }) {
-    return this.request('/api/convert/unit', 'GET', params);
-  }
-
-  // ==================== MEMES ====================
-  memesTwoButton(params: { text1: string; text2: string }) {
-    return this.request('/api/meme/buttons', 'GET', params);
-  }
-  
-  memesYelling(params: { text1: string; text2: string }) {
-    return this.request('/api/meme/yelling', 'GET', params);
-  }
-
-  memesSuccess(params: { text1: string; text2: string }) {
-    return this.request('/api/meme/success', 'GET', params);
-  }
-
-  memesPuppet(params: { text1: string; text2: string }) {
-    return this.request('/api/meme/puppet', 'GET', params);
-  }
-
-  memesCouple(params: { text1: string; text2: string }) {
-    return this.request('/api/meme/couple', 'GET', params);
-  }
-
-  memesSquid(params: { text1: string; text2: string }) {
-    return this.request('/api/meme/squid', 'GET', params);
-  }
-
-  memesMask(params: { text1: string; text2?: string; text3?: string; text4?: string }) {
-    return this.request('/api/meme/mask', 'GET', params);
-  }
-
-  memesDrowning(params: { text1: string; text2?: string; text3?: string; text4?: string }) {
-    return this.request('/api/meme/drowning', 'GET', params);
-  }
-
-  memesDistracted(params: { text1: string; text2?: string; text3?: string }) {
-    return this.request('/api/meme/boyfriend', 'GET', params);
-  }
-
-  memesExit(params: { text1: string; text2?: string; text3?: string }) {
-    return this.request('/api/meme/exit', 'GET', params);
+  UnitConvert(params: { from: string; to: string; value: number }) {
+    return this.request('/api/converter/unit', 'GET', params);
   }
 
   // ==================== PHOTOOXY ====================
-  photoPubg(params: { text1: string; text2: string }) {
-    return this.request('/api/photo/pubg', 'GET', params);
+  Battlefield(params: { text1: string; text2: string }) {
+    return this.request('/api/photooxy/battle4', 'GET', params);
   }
 
-  photoBattle(params: { text1: string; text2: string }) {
-    return this.request('/api/photo/battle4', 'GET', params);
+  TikTokEffect(params: { text1: string; text2: string }) {
+    return this.request('/api/photooxy/tiktok', 'GET', params);
   }
 
-  photoTikTok(params: { text1: string; text2: string }) {
-    return this.request('/api/photo/tiktok', 'GET', params);
-  }
-
-  photoNeon(params: { text: string }) {
-    return this.request('/api/photo/neon', 'GET', params);
-  }
-
-  photoWarface(params: { text: string }) {
-    return this.request('/api/photo/warface', 'GET', params);
-  }
-
-  photoWarface2(params: { text: string }) {
-    return this.request('/api/photo/warface2', 'GET', params);
-  }
-
-  photoLeague(params: { text: string }) {
-    return this.request('/api/photo/league', 'GET', params);
-  }
-
-  photoLolCover(params: { text: string }) {
-    return this.request('/api/photo/lolcover', 'GET', params);
-  }
-
-  photoLolShine(params: { text: string }) {
-    return this.request('/api/photo/lolshine', 'GET', params);
-  }
-
-  photoMetal(params: { text: string }) {
-    return this.request('/api/photo/darkmetal', 'GET', params);
+  CustomPhoto(params: { url: string; text: string }) {
+    return this.request('/api/photooxy/custom', 'GET', params);
   }
 
   // ==================== EPHOTO360 ====================
-  ephotoDeadpool(params: { text1: string; text2: string }) {
-    return this.request('/api/ephoto/deadpool', 'GET', params);
+  WolfGalaxy(params: { text1: string; text2: string }) {
+    return this.request('/api/ephoto/wolfGalaxy', 'GET', params);
   }
 
-  ephotoWolf(params: { text1: string; text2: string }) {
-    return this.request('/api/ephoto/wolf', 'GET', params);
+  FreeFire(params: { text1: string; text2: string }) {
+    return this.request('/api/ephoto/freeFireBanner', 'GET', params);
   }
 
-  ephotoShirt(params: { text1: string; text2: string }) {
-    return this.request('/api/ephoto/shirt', 'GET', params);
+  ApexLegends(params: { text1: string; text2: string }) {
+    return this.request('/api/ephoto/apexBanner', 'GET', params);
   }
 
-  ephotoPencil(params: { text1: string; text2: string }) {
-    return this.request('/api/ephoto/sketch', 'GET', params);
-  }
-
-  ephotoThor(params: { text1: string; text2: string }) {
-    return this.request('/api/ephoto/thor', 'GET', params);
-  }
-
-  ephotoRoyal(params: { text: string }) {
-    return this.request('/api/ephoto/royal', 'GET', params);
-  }
-
-  ephotoComic(params: { text: string }) {
-    return this.request('/api/ephoto/comic', 'GET', params);
-  }
-
-  ephotoWings(params: { text: string }) {
-    return this.request('/api/ephoto/angel', 'GET', params);
-  }
-
-  ephotoFps(params: { text: string }) {
-    return this.request('/api/ephoto/game', 'GET', params);
-  }
-
-  ephotoMetal(params: { text: string }) {
-    return this.request('/api/ephoto/mavatar', 'GET', params);
+  CustomEphoto(params: { url: string; text: string }) {
+    return this.request('/api/ephoto/custom', 'GET', params);
   }
 
   // ==================== INFORMATION ====================
-  infoGithubUser(params: { username: string }) {
-    return this.request('/api/github/user', 'GET', params);
-  }
-
-  infoGithubRepo(params: { owner: string; repo: string }) {
+  GithubRepo(params: { owner: string; repo: string }) {
     return this.request('/api/github/repo', 'GET', params);
   }
 
-  infoIMDb(params: { query: string }) {
-    return this.request('/api/info/imdb', 'GET', params);
+  Universities(params: { country: string }) {
+    return this.request('/api/info/universities', 'GET', params);
   }
 
-  infoTMDb(params: { query: string }) {
-    return this.request('/api/info/tmdb', 'GET', params);
+  IPLookup(params: { ip: string }) {
+    return this.request('/api/info/ipinfo', 'GET', params);
   }
 
-  infoUniversity(params: { country: string }) {
-    return this.request('/api/info/university', 'GET', params);
-  }
-
-  infoIP(params: { ip: string }) {
-    return this.request('/api/info/ip', 'GET', params);
-  }
-
-  infoTrends(params: { country: string }) {
+  Trends(params: { country: string }) {
     return this.request('/api/info/trends', 'GET', params);
   }
 
-  infoWeather(params: { city: string }) {
-    return this.request('/api/weather/info', 'GET', params);
+  Weather(params: { city: string }) {
+    return this.request('/api/info/weather', 'GET', params);
   }
 
-  infoCountry(params: { name: string }) {
+  Country(params: { name: string }) {
     return this.request('/api/info/country', 'GET', params);
   }
 
-  infoWikipedia(params: { query: string }) {
-    return this.request('/api/info/wiki', 'GET', params);
+  Wikipedia(params: { query: string }) {
+    return this.request('/api/info/wikipedia', 'GET', params);
   }
 
   // ==================== CRYPTO ====================
- CryptoPrice(params: { id: string }) {
-  return this.request('/api/info/crypto', 'GET', params);
+ CoinInfo(params: { id: string }) {
+  return this.request('/api/info/coininfo', 'GET', params);
  }
 
- cryptoList() {
-  return this.request('/api/crypto/tags', 'GET');
+ CoinsList() {
+  return this.request('/api/info/cointags', 'GET');
  }
 
   // ==================== UTILITY METHODS ====================
@@ -1170,7 +645,7 @@ class API {
   }
 }
 
-export default APIQasim;
+export default API;
 export { API, APIConfig, APIResponse };
 
 
