@@ -120,8 +120,8 @@ class API {
     return this.request('/api/mistral/advanced', 'GET', params);
   }
 
-  LlamaAi(params: { prompt: string }) {
-    return this.request('/api/novita/llama', 'GET', params);
+  Deepseek(params: { prompt: string }) {
+    return this.request('/api/openrouter/deepseek', 'GET', params);
   }
 
   QwenAi(params: { text: string }) {
@@ -296,10 +296,6 @@ class API {
     return this.request('/api/tools/quoted', 'GET', params);
   }
 
-  Avatar(params: { text: string; shape?: string }) {
-    return this.request('/api/tools/avatar', 'GET', params);
-  }
-
   Img2Base64(body: FormData) {
     return this.request('/api/img2base64', 'POST', undefined, body, 'body');
   }
@@ -348,10 +344,6 @@ class API {
    // ==================== IMAGES ====================
   Couple() {
     return this.request('/api/images/couplepp', 'GET');
-  }
-
-  Food (params: { food: string; keyword?: string }) {
-    return this.request('/api/images/food', 'GET', params);
   }
 
   Islamic() {
@@ -495,7 +487,7 @@ class API {
   }
 
   FlickrImage(params: { query: string }) {
-    return this.request('/api/flickr/search', 'GET', params);
+    return this.request('/api/flickr/flickr', 'GET', params);
   }
 
   Wattpad(params: { query: string }) {
@@ -520,7 +512,7 @@ class API {
 
   // ==================== TOOLS ====================
   Dictionary(params: { word: string }) {
-    return this.request('/api/tools/dictionary', 'GET', params);
+    return this.request('/api/dictionary/define', 'GET', params);
   } 
 
   Screenshot(params: { url: string }) {
@@ -528,7 +520,7 @@ class API {
   }
 
   SSFull(params: { url: string; format?: string; fullSize?: boolean }) {
-    return this.request('/api/tools/styletext', 'GET', params);
+    return this.request('/api/screenshot/take', 'GET', params);
   }
 
   Translate(params: { text: string; from?: string; to?: string }) {
@@ -625,24 +617,24 @@ class API {
 
 // ==================== IMAGE EFFECTS (POST with file upload) ====================
 
-DropShadow(body: FormData) {
-  return this.request('/api/sharp/shadow', 'POST', undefined, body, 'body');
+Blur(body: FormData) {
+  return this.request('/api/sharp/blur', 'POST', undefined, body, 'body');
 }
 
 Vignette(body: FormData) {
   return this.request('/api/sharp/vignette', 'POST', undefined, body, 'body');
 }
 
-Blur(body: FormData) {
-  return this.request('/api/sharp/blur', 'POST', undefined, body, 'body');
+Fisheye(body: FormData) {
+  return this.request('/api/sharp/fisheye', 'POST', undefined, body, 'body');
 }
 
 Grayscale(body: FormData) {
   return this.request('/api/sharp/grayscale', 'POST', undefined, body, 'body');
 }
 
-Rotate(body: FormData) {
-  return this.request('/api/sharp/rotate', 'POST', undefined, body, 'body');
+Invert(body: FormData) {
+  return this.request('/api/sharp/invert', 'POST', undefined, body, 'body');
 }
 
 Resize(body: FormData) {
