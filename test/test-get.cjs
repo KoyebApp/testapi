@@ -20,7 +20,7 @@ let skippedTests = 0;
 
 // Initialize API
 const api = new API({
-  apiKey: 'qasim-dev',
+  apiKey: 'my-key_123',
   fullResponse: false,
   timeout: 30000
 });
