@@ -20,7 +20,7 @@ let skippedTests = 0;
 
 // Initialize API
 const api = new API({
-  apiKey: 'my-key_123',
+  apiKey: 'xbps-install-Syu',
   fullResponse: false,
   timeout: 30000
 });
