@@ -50,12 +50,12 @@ function validateResponse(response) {
     throw new Error('Response is null or undefined');
   }
   
-  // In Node.js, should be base64 string
+  // In Node.js, should be base64 string for images
   if (typeof response === 'string' && response.startsWith('data:image')) {
     return true;
   }
   
-  throw new Error('Response is not a valid base64 image string');
+  throw new Error(`Invalid response type: ${typeof response}`);
 }
 
 function createTestImage() {
@@ -109,27 +109,39 @@ async function runAllTests() {
   // ==================== IMAGE EFFECTS TESTS ====================
   console.log(`\n${colors.bright}${colors.blue}━━━ IMAGE EFFECTS ENDPOINTS ━━━${colors.reset}`);
   
-  await runTest('Fisheye - Should add fisheye effect', async () => {
-    const formData = createFormData(testImagePath);
-    const response = await api.Fisheye(formData, { strength: 2.5 });
-    validateResponse(response);
-  });
-
-  await runTest('Vignette - Should add vignette effect', async () => {
-    const formData = createFormData(testImagePath);
-    const response = await api.Vignette(formData, { intensity: 0.5 });
-    validateResponse(response);
-  });
-
-  await runTest('Blur - Should blur image', async () => {
-    const formData = createFormData(testImagePath);
-    const response = await api.Blur(formData, { sigma: 3 });
-    validateResponse(response);
-  });
-
   await runTest('Grayscale - Should convert to grayscale', async () => {
     const formData = createFormData(testImagePath);
     const response = await api.Grayscale(formData);
+    validateResponse(response);
+  });
+
+  await runTest('Sepia - Should apply sepia tone', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Sepia(formData);
+    validateResponse(response);
+  });
+
+  await runTest('Blur - Should blur image (with radius param)', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Blur(formData, { radius: 5 });
+    validateResponse(response);
+  });
+
+  await runTest('Sharpen - Should sharpen image', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Sharpen(formData, { sigma: 1.0 });
+    validateResponse(response);
+  });
+
+  await runTest('Brightness - Should adjust brightness', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Brightness(formData, { value: 1.3 });
+    validateResponse(response);
+  });
+
+  await runTest('Contrast - Should adjust contrast', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Contrast(formData, { value: 1.5 });
     validateResponse(response);
   });
 
@@ -139,9 +151,51 @@ async function runAllTests() {
     validateResponse(response);
   });
 
+  await runTest('Normalize - Should normalize image', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Normalize(formData);
+    validateResponse(response);
+  });
+
+  await runTest('Rotate - Should rotate image', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Rotate(formData, { degrees: 90 });
+    validateResponse(response);
+  });
+
   await runTest('Resize - Should resize image', async () => {
     const formData = createFormData(testImagePath);
     const response = await api.Resize(formData, { width: 200, height: 200 });
+    validateResponse(response);
+  });
+
+  await runTest('Saturation - Should adjust saturation', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Saturation(formData, { value: 1.5 });
+    validateResponse(response);
+  });
+
+  await runTest('Hue - Should adjust hue', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Hue(formData, { degrees: 90 });
+    validateResponse(response);
+  });
+
+  await runTest('Pixelate - Should pixelate image', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Pixelate(formData, { size: 10 });
+    validateResponse(response);
+  });
+
+  await runTest('Median - Should apply median filter', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Median(formData, { size: 3 });
+    validateResponse(response);
+  });
+
+  await runTest('Tint - Should apply color tint', async () => {
+    const formData = createFormData(testImagePath);
+    const response = await api.Tint(formData, { color: '#ff0000' });
     validateResponse(response);
   });
 
@@ -168,3 +222,4 @@ runAllTests().catch(error => {
   console.error(`\n${colors.red}${colors.bright}Fatal Error:${colors.reset}`, error);
   process.exit(1);
 });
+                
