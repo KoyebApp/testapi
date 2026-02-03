@@ -42,70 +42,133 @@ class API {
     return url.toString();
   }
 
-  private async request<T = any>(
-    endpoint: string,
-    method: string = 'GET',
-    params?: Record<string, any>,
-    body?: Record<string, any> | FormData,
-    apiKeyLocation: 'query' | 'body' = 'query'
-  ): Promise<T | APIResponse<T>> {
-    let url: string;
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), this.timeout);
+private async request<T = any>(
+  endpoint: string,
+  method: string = 'GET',
+  params?: Record<string, any>,
+  body?: Record<string, any> | FormData,
+  apiKeyLocation: 'query' | 'body' = 'query'
+): Promise<T | APIResponse<T>> {
+  let url: string;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), this.timeout);
 
-    try {
-      const fetchOptions: RequestInit = {
-        method,
-        signal: controller.signal,
-        headers: {}
-      };
+  try {
+    const fetchOptions: RequestInit = {
+      method,
+      signal: controller.signal,
+      headers: {}
+    };
 
-      if (method === 'GET') {
+    if (method === 'GET') {
+      url = this.buildURL(endpoint, params || {});
+    } else {
+      if (body instanceof FormData) {
         url = this.buildURL(endpoint, params || {});
+        fetchOptions.body = body;
       } else {
         url = apiKeyLocation === 'query' 
           ? this.buildURL(endpoint, params || {})
           : `${this.baseURL}${endpoint}`;
 
         if (body) {
-          if (body instanceof FormData) {
-            if (apiKeyLocation === 'body') {
-              body.append('apikey', this.apiKey);
-            }
-            fetchOptions.body = body;
-          } else {
-            fetchOptions.headers = { 'Content-Type': 'application/json' };
-            const bodyData = apiKeyLocation === 'body' 
-              ? { ...body, apikey: this.apiKey }
-              : body;
-            fetchOptions.body = JSON.stringify(bodyData);
-          }
+          fetchOptions.headers = { 'Content-Type': 'application/json' };
+          const bodyData = apiKeyLocation === 'body' 
+            ? { ...body, apikey: this.apiKey }
+            : body;
+          fetchOptions.body = JSON.stringify(bodyData);
         }
       }
-
-      const response = await fetch(url, fetchOptions);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const contentType = response.headers.get('content-type');
-      if (contentType?.includes('application/json')) {
-        const data: APIResponse<T> = await response.json();
-        return this.fullResponse ? data : (data.data ?? data);
-      }
-      
-      return response.text() as any;
-    } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') {
-        throw new Error('Request timeout');
-      }
-      throw error;
-    } finally {
-      clearTimeout(timeoutId);
     }
-  }
 
+    const response = await fetch(url, fetchOptions);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const contentType = response.headers.get('content-type');
+    
+    if (contentType?.includes('application/json')) {
+      const data: APIResponse<T> = await response.json();
+      return this.fullResponse ? data : (data.data ?? data);
+    }
+    
+    if (contentType?.startsWith('image/') || 
+        contentType?.includes('application/octet-stream') ||
+        contentType?.includes('application/pdf')) {
+      
+      const isNode = typeof window === 'undefined';
+      
+      if (isNode) {
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const base64 = buffer.toString('base64');
+        return `data:${contentType};base64,${base64}` as any;
+      } else {
+        const blob = await response.blob();
+        const objectURL = URL.createObjectURL(blob);
+        
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve({
+              blob: blob,
+              url: objectURL,
+              base64: reader.result,
+              contentType: contentType
+            } as any);
+          };
+          reader.readAsDataURL(blob);
+        });
+      }
+    }
+    
+    return response.text() as any;
+  } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error('Request timeout');
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+// USAGE EXAMPLES:
+
+/*
+// ==================== IN NODE.JS ====================
+const result = await api.Blur(formData);
+// result = "data:image/png;base64,iVBORw0KGgoAAAA..."
+
+// Save to file:
+const fs = require('fs');
+const base64Data = result.split(',')[1];
+const buffer = Buffer.from(base64Data, 'base64');
+fs.writeFileSync('blurred.png', buffer);
+
+// ==================== IN BROWSER ====================
+const result = await api.Blur(formData);
+// result = {
+//   blob: Blob,
+//   url: "blob:http://...",
+//   base64: "data:image/png;base64,...",
+//   contentType: "image/png"
+// }
+
+// Display in img tag:
+document.querySelector('img').src = result.url;
+
+// Or use base64:
+document.querySelector('img').src = result.base64;
+
+// Download file:
+const a = document.createElement('a');
+a.href = result.url;
+a.download = 'blurred.png';
+a.click();
+*/
   
   // ==================== AI ====================
   KimiAi(params: { prompt: string }) {
@@ -294,10 +357,6 @@ class API {
 
   Quoted(params: { text: string; name: string; profile: string }) {
     return this.request('/api/tools/quoted', 'GET', params);
-  }
-
-  Img2Base64(body: FormData) {
-    return this.request('/api/img2base64', 'POST', undefined, body, 'body');
   }
 
   Carbon(params: { code: string; bg?: string }) {
@@ -617,29 +676,59 @@ class API {
 
 // ==================== IMAGE EFFECTS (POST with file upload) ====================
 
-Blur(body: FormData) {
-  return this.request('/api/sharp/blur', 'POST', undefined, body, 'body');
+Blur(body: FormData, params?: { sigma?: number }) {
+  return this.request('/api/sharp/blur', 'POST', params, body, 'query');
 }
 
-Vignette(body: FormData) {
-  return this.request('/api/sharp/vignette', 'POST', undefined, body, 'body');
+Vignette(body: FormData, params?: { intensity?: number }) {
+  return this.request('/api/sharp/vignette', 'POST', params, body, 'query');
 }
 
-Fisheye(body: FormData) {
-  return this.request('/api/sharp/fisheye', 'POST', undefined, body, 'body');
+Fisheye(body: FormData, params?: { strength?: number }) {
+  return this.request('/api/sharp/fisheye', 'POST', params, body, 'query');
 }
 
 Grayscale(body: FormData) {
-  return this.request('/api/sharp/grayscale', 'POST', undefined, body, 'body');
+  return this.request('/api/sharp/grayscale', 'POST', {}, body, 'query');
 }
 
 Invert(body: FormData) {
-  return this.request('/api/sharp/invert', 'POST', undefined, body, 'body');
+  return this.request('/api/sharp/invert', 'POST', {}, body, 'query');
 }
 
-Resize(body: FormData) {
-  return this.request('/api/sharp/resize', 'POST', undefined, body, 'body');
+Resize(body: FormData, params?: { width?: number; height?: number }) {
+  return this.request('/api/sharp/resize', 'POST', params, body, 'query');
 }
+
+DropShadow(body: FormData, params?: { size?: number; blur?: number; opacity?: number; x?: number; y?: number }) {
+  return this.request('/api/sharp/shadow', 'POST', params, body, 'query');
+}
+
+Img2Base64(body: FormData) {
+  return this.request('/api/img2base64', 'POST', {}, body, 'query');
+}
+
+// ==================== USAGE EXAMPLE ====================
+/*
+// The params object will be converted to query string (including apiKey)
+// The FormData goes in the body
+
+const formData = new FormData();
+formData.append('file', fileBlob);
+
+// Method 1: No extra params (apiKey automatically added to query)
+await api.Blur(formData);
+// Request: POST /api/sharp/blur?apikey=qasim-dev
+
+// Method 2: With extra params
+await api.Blur(formData, { sigma: 5 });
+// Request: POST /api/sharp/blur?apikey=qasim-dev&sigma=5
+
+// Method 3: With multiple params
+await api.DropShadow(formData, { size: 10, blur: 5, opacity: 0.5, x: 5, y: 5 });
+// Request: POST /api/sharp/shadow?apikey=qasim-dev&size=10&blur=5&opacity=0.5&x=5&y=5
+*/
+  
 
   // ==================== UTILITY METHODS ====================
   setFullResponse(value: boolean): void {
