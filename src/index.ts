@@ -46,7 +46,7 @@ private async request<T = any>(
   endpoint: string,
   method: string = 'GET',
   params?: Record<string, any>,
-  body?: Record<string, any> | FormData,
+  body?: Record<string, any> | any,
   apiKeyLocation: 'query' | 'body' = 'query'
 ): Promise<T | APIResponse<T>> {
   let url: string;
@@ -57,15 +57,25 @@ private async request<T = any>(
     const fetchOptions: RequestInit = {
       method,
       signal: controller.signal,
-      headers: {}
+      headers: {} as any
     };
 
     if (method === 'GET') {
       url = this.buildURL(endpoint, params || {});
     } else {
-      if (body instanceof FormData) {
+      const isFormData = body && typeof body === 'object' && 
+        (typeof FormData !== 'undefined' && body instanceof FormData) ||
+        (body.constructor && body.constructor.name === 'FormData') ||
+        (typeof body.getHeaders === 'function');
+
+      if (isFormData) {
         url = this.buildURL(endpoint, params || {});
-        fetchOptions.body = body;
+        
+        if (typeof body.getHeaders === 'function') {
+          fetchOptions.headers = body.getHeaders();
+        }
+        
+        fetchOptions.body = body as any;
       } else {
         url = apiKeyLocation === 'query' 
           ? this.buildURL(endpoint, params || {})
@@ -134,41 +144,6 @@ private async request<T = any>(
     clearTimeout(timeoutId);
   }
 }
-
-// USAGE EXAMPLES:
-
-/*
-// ==================== IN NODE.JS ====================
-const result = await api.Blur(formData);
-// result = "data:image/png;base64,iVBORw0KGgoAAAA..."
-
-// Save to file:
-const fs = require('fs');
-const base64Data = result.split(',')[1];
-const buffer = Buffer.from(base64Data, 'base64');
-fs.writeFileSync('blurred.png', buffer);
-
-// ==================== IN BROWSER ====================
-const result = await api.Blur(formData);
-// result = {
-//   blob: Blob,
-//   url: "blob:http://...",
-//   base64: "data:image/png;base64,...",
-//   contentType: "image/png"
-// }
-
-// Display in img tag:
-document.querySelector('img').src = result.url;
-
-// Or use base64:
-document.querySelector('img').src = result.base64;
-
-// Download file:
-const a = document.createElement('a');
-a.href = result.url;
-a.download = 'blurred.png';
-a.click();
-*/
   
   // ==================== AI ====================
   KimiAi(params: { prompt: string }) {
