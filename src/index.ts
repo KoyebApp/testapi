@@ -676,7 +676,7 @@ a.click();
 
 // ==================== IMAGE EFFECTS (POST with file upload) ====================
 
-Blur(body: FormData, params?: { sigma?: number }) {
+Blur(body: FormData, params?: { radius?: number }) {
   return this.request('/api/sharp/blur', 'POST', params, body, 'query');
 }
 
@@ -692,42 +692,121 @@ Grayscale(body: FormData) {
   return this.request('/api/sharp/grayscale', 'POST', {}, body, 'query');
 }
 
+Sepia(body: FormData) {
+  return this.request('/api/sharp/sepia', 'POST', {}, body, 'query');
+}
+
 Invert(body: FormData) {
   return this.request('/api/sharp/invert', 'POST', {}, body, 'query');
+}
+
+Normalize(body: FormData) {
+  return this.request('/api/sharp/normalize', 'POST', {}, body, 'query');
+}
+
+Sharpen(body: FormData, params?: { sigma?: number }) {
+  return this.request('/api/sharp/sharpen', 'POST', params, body, 'query');
+}
+
+Brightness(body: FormData, params?: { value?: number }) {
+  return this.request('/api/sharp/brightness', 'POST', params, body, 'query');
+}
+
+Contrast(body: FormData, params?: { value?: number }) {
+  return this.request('/api/sharp/contrast', 'POST', params, body, 'query');
+}
+
+Rotate(body: FormData, params?: { degrees?: number }) {
+  return this.request('/api/sharp/rotate', 'POST', params, body, 'query');
+}
+
+Flip(body: FormData, params?: { horizontal?: boolean; vertical?: boolean }) {
+  return this.request('/api/sharp/flip', 'POST', params, body, 'query');
 }
 
 Resize(body: FormData, params?: { width?: number; height?: number }) {
   return this.request('/api/sharp/resize', 'POST', params, body, 'query');
 }
 
-DropShadow(body: FormData, params?: { size?: number; blur?: number; opacity?: number; x?: number; y?: number }) {
-  return this.request('/api/sharp/shadow', 'POST', params, body, 'query');
+Crop(body: FormData, params?: { x?: number; y?: number; width?: number; height?: number }) {
+  return this.request('/api/sharp/crop', 'POST', params, body, 'query');
 }
 
-Img2Base64(body: FormData) {
-  return this.request('/api/img2base64', 'POST', {}, body, 'query');
+Scale(body: FormData, params?: { factor?: number }) {
+  return this.request('/api/sharp/scale', 'POST', params, body, 'query');
 }
 
-// ==================== USAGE EXAMPLE ====================
-/*
-// The params object will be converted to query string (including apiKey)
-// The FormData goes in the body
+Contain(body: FormData, params?: { width?: number; height?: number }) {
+  return this.request('/api/sharp/contain', 'POST', params, body, 'query');
+}
 
-const formData = new FormData();
-formData.append('file', fileBlob);
+Cover(body: FormData, params?: { width?: number; height?: number }) {
+  return this.request('/api/sharp/cover', 'POST', params, body, 'query');
+}
 
-// Method 1: No extra params (apiKey automatically added to query)
-await api.Blur(formData);
-// Request: POST /api/sharp/blur?apikey=qasim-dev
+Saturation(body: FormData, params?: { value?: number }) {
+  return this.request('/api/sharp/saturation', 'POST', params, body, 'query');
+}
 
-// Method 2: With extra params
-await api.Blur(formData, { sigma: 5 });
-// Request: POST /api/sharp/blur?apikey=qasim-dev&sigma=5
+Hue(body: FormData, params?: { degrees?: number }) {
+  return this.request('/api/sharp/hue', 'POST', params, body, 'query');
+}
 
-// Method 3: With multiple params
-await api.DropShadow(formData, { size: 10, blur: 5, opacity: 0.5, x: 5, y: 5 });
-// Request: POST /api/sharp/shadow?apikey=qasim-dev&size=10&blur=5&opacity=0.5&x=5&y=5
-*/
+Gamma(body: FormData, params?: { value?: number }) {
+  return this.request('/api/sharp/gamma', 'POST', params, body, 'query');
+}
+
+Threshold(body: FormData, params?: { max?: number }) {
+  return this.request('/api/sharp/threshold', 'POST', params, body, 'query');
+}
+
+Tint(body: FormData, params?: { color?: string }) {
+  return this.request('/api/sharp/tint', 'POST', params, body, 'query');
+}
+
+Color(body: FormData, params?: { action?: string; value?: number }) {
+  return this.request('/api/sharp/color', 'POST', params, body, 'query');
+}
+
+Median(body: FormData, params?: { size?: number }) {
+  return this.request('/api/sharp/median', 'POST', params, body, 'query');
+}
+
+Pixelate(body: FormData, params?: { size?: number }) {
+  return this.request('/api/sharp/pixelate', 'POST', params, body, 'query');
+}
+
+Gaussian(body: FormData, params?: { radius?: number }) {
+  return this.request('/api/sharp/gaussian', 'POST', params, body, 'query');
+}
+
+Convolute(body: FormData) {
+  return this.request('/api/sharp/convolute', 'POST', {}, body, 'query');
+}
+
+Opacity(body: FormData, params?: { value?: number }) {
+  return this.request('/api/sharp/opacity', 'POST', params, body, 'query');
+}
+
+Fade(body: FormData, params?: { value?: number }) {
+  return this.request('/api/sharp/fade', 'POST', params, body, 'query');
+}
+
+Posterize(body: FormData, params?: { level?: number }) {
+  return this.request('/api/sharp/posterize', 'POST', params, body, 'query');
+}
+
+Dither(body: FormData) {
+  return this.request('/api/sharp/dither', 'POST', {}, body, 'query');
+}
+
+Circle(body: FormData) {
+  return this.request('/api/sharp/circle', 'POST', {}, body, 'query');
+}
+
+// NOTE: Params go in QUERY STRING, FormData goes in BODY
+// Example request: POST /api/sharp/blur?apikey=xxx&radius=5
+// With FormData containing the file in the body
   
 
   // ==================== UTILITY METHODS ====================
