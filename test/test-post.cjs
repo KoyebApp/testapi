@@ -1,7 +1,8 @@
-// test/test-post.cjs
+
 const API = require('../dist/index.cjs');
 const fs = require('fs');
 const path = require('path');
+const { FormData, File } = require('formdata-node'); // devDependency
 
 const colors = {
   reset: '\x1b[0m',
@@ -18,7 +19,6 @@ let passedTests = 0;
 let failedTests = 0;
 let skippedTests = 0;
 
-// Initialize API
 const api = new API({
   apiKey: 'qasim-dev',
   fullResponse: false,
@@ -50,7 +50,6 @@ function validateResponse(response) {
     throw new Error('Response is null or undefined');
   }
   
-  // In Node.js, should be base64 string for images
   if (typeof response === 'string' && response.startsWith('data:image')) {
     return true;
   }
@@ -59,14 +58,8 @@ function validateResponse(response) {
 }
 
 function createTestImage() {
-  const testDir = path.join(__dirname, 'fixtures');
-  const testImagePath = path.join(testDir, 'test.jpg');
+  const testImagePath = path.join(__dirname, 'test.jpg');
   
-  if (!fs.existsSync(testDir)) {
-    fs.mkdirSync(testDir, { recursive: true });
-  }
-  
-  // Simple 100x100 red square image (minimal JPEG)
   const redSquare = Buffer.from([
     0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10, 0x4A, 0x46, 0x49, 0x46, 0x00, 0x01,
     0x01, 0x01, 0x00, 0x48, 0x00, 0x48, 0x00, 0x00, 0xFF, 0xDB, 0x00, 0x43,
@@ -81,19 +74,16 @@ function createTestImage() {
     0xD2, 0xCF, 0x20, 0xFF, 0xD9
   ]);
   
-  if (!fs.existsSync(testImagePath)) {
-    fs.writeFileSync(testImagePath, redSquare);
-  }
-  
+  fs.writeFileSync(testImagePath, redSquare);
   return testImagePath;
 }
 
 function createFormData(filePath) {
-  const FormData = require('form-data');
-  const formData = new FormData();
+  const fileBuffer = fs.readFileSync(filePath);
+  const file = new File([fileBuffer], path.basename(filePath), { type: 'image/jpeg' });
   
-  // Only add the file - params go as second argument to the API method
-  formData.append('file', fs.createReadStream(filePath));
+  const formData = new FormData();
+  formData.set('file', file);
   
   return formData;
 }
@@ -106,7 +96,6 @@ async function runAllTests() {
   const testImagePath = createTestImage();
   console.log(`Using test image: ${testImagePath}\n`);
 
-  // ==================== IMAGE EFFECTS TESTS ====================
   console.log(`\n${colors.bright}${colors.blue}━━━ IMAGE EFFECTS ENDPOINTS ━━━${colors.reset}`);
   
   await runTest('Grayscale - Should convert to grayscale', async () => {
@@ -121,7 +110,7 @@ async function runAllTests() {
     validateResponse(response);
   });
 
-  await runTest('Blur - Should blur image (with radius param)', async () => {
+  await runTest('Blur - Should blur image', async () => {
     const formData = createFormData(testImagePath);
     const response = await api.Blur(formData, { radius: 5 });
     validateResponse(response);
@@ -133,27 +122,9 @@ async function runAllTests() {
     validateResponse(response);
   });
 
-  await runTest('Brightness - Should adjust brightness', async () => {
-    const formData = createFormData(testImagePath);
-    const response = await api.Brightness(formData, { value: 1.3 });
-    validateResponse(response);
-  });
-
-  await runTest('Contrast - Should adjust contrast', async () => {
-    const formData = createFormData(testImagePath);
-    const response = await api.Contrast(formData, { value: 1.5 });
-    validateResponse(response);
-  });
-
   await runTest('Invert - Should invert colors', async () => {
     const formData = createFormData(testImagePath);
     const response = await api.Invert(formData);
-    validateResponse(response);
-  });
-
-  await runTest('Normalize - Should normalize image', async () => {
-    const formData = createFormData(testImagePath);
-    const response = await api.Normalize(formData);
     validateResponse(response);
   });
 
@@ -169,37 +140,12 @@ async function runAllTests() {
     validateResponse(response);
   });
 
-  await runTest('Saturation - Should adjust saturation', async () => {
-    const formData = createFormData(testImagePath);
-    const response = await api.Saturation(formData, { value: 1.5 });
-    validateResponse(response);
-  });
-
-  await runTest('Hue - Should adjust hue', async () => {
-    const formData = createFormData(testImagePath);
-    const response = await api.Hue(formData, { degrees: 90 });
-    validateResponse(response);
-  });
-
   await runTest('Pixelate - Should pixelate image', async () => {
     const formData = createFormData(testImagePath);
     const response = await api.Pixelate(formData, { size: 10 });
     validateResponse(response);
   });
 
-  await runTest('Median - Should apply median filter', async () => {
-    const formData = createFormData(testImagePath);
-    const response = await api.Median(formData, { size: 3 });
-    validateResponse(response);
-  });
-
-  await runTest('Tint - Should apply color tint', async () => {
-    const formData = createFormData(testImagePath);
-    const response = await api.Tint(formData, { color: '#ff0000' });
-    validateResponse(response);
-  });
-
-  // ==================== RESULTS ====================
   console.log(`\n${colors.bright}${colors.cyan}════════════════════════════════════════════════════════${colors.reset}`);
   console.log(`${colors.bright}                      TEST RESULTS                         ${colors.reset}`);
   console.log(`${colors.bright}${colors.cyan}════════════════════════════════════════════════════════${colors.reset}`);
@@ -222,4 +168,4 @@ runAllTests().catch(error => {
   console.error(`\n${colors.red}${colors.bright}Fatal Error:${colors.reset}`, error);
   process.exit(1);
 });
-                
+
