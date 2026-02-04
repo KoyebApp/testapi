@@ -1,12 +1,11 @@
-// test/debug-formdata.cjs
+// test/debug-with-encoder.cjs
 const { FormData, File } = require('formdata-node');
-const fs = require('fs');
-const path = require('path');
+const { FormDataEncoder } = require('form-data-encoder');
+const { Readable } = require('stream');
 
-async function testRawRequest() {
-  console.log('\n=== TESTING FORMDATA-NODE WITH FETCH ===\n');
+async function testWithEncoder() {
+  console.log('\n=== TESTING WITH FORMDATAENCODER ===\n');
   
-  // Create test image
   const redSquare = Buffer.from([
     0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10, 0x4A, 0x46, 0x49, 0x46, 0x00, 0x01,
     0x01, 0x01, 0x00, 0x48, 0x00, 0x48, 0x00, 0x00, 0xFF, 0xDB, 0x00, 0x43,
@@ -23,11 +22,13 @@ async function testRawRequest() {
   
   const file = new File([redSquare], 'test.jpg', { type: 'image/jpeg' });
   const formData = new FormData();
-  formData.set('file', file);
+  formData.append('file', file);
   
-  console.log('FormData type:', formData.constructor.name);
-  console.log('Has getHeaders?', typeof formData.getHeaders);
-  console.log('File size:', redSquare.length);
+  // Encode FormData for use with fetch
+  const encoder = new FormDataEncoder(formData);
+  
+  console.log('Headers:', encoder.headers);
+  console.log('Content-Length:', encoder.headers['content-length']);
   
   const url = 'https://api.qasimdev.dpdns.org/api/sharp/grayscale?apikey=qasim-dev';
   console.log('URL:', url);
@@ -35,8 +36,8 @@ async function testRawRequest() {
   try {
     const response = await fetch(url, {
       method: 'POST',
-      body: formData
-      // DO NOT set Content-Type - fetch does it automatically for FormData
+      headers: encoder.headers,
+      body: Readable.from(encoder)
     });
     
     console.log('\nStatus:', response.status);
@@ -55,4 +56,5 @@ async function testRawRequest() {
   }
 }
 
-testRawRequest();
+testWithEncoder();
+  
